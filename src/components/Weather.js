@@ -1,32 +1,52 @@
 import React, { Component } from 'react';
 import { Loader } from 'react-bulma-components';
-import axios from 'axios';
-
-const API_KEY = '4fd3ce5fd381d1971d1dc32cdf1fcaee';
+import { connect } from 'react-redux';
 
 class Weather extends Component {
-	 constructor(){
+	constructor(){
 	    super();
-	    this.state = {};
-	    this.getWeather = this.getWeather.bind(this);
-	}
-	getWeather(){
-		axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Manchester&APPID=${API_KEY}`).then(res => {
-			console.log(res)
-		}).catch(err => {
-
-		});	
 	}
 
 	componentDidMount(){
-		this.getWeather();
+
 	}
 
   	render() {
+  		const loading = this.props.loading;
+  		let content;
+
+     	if (loading){
+    		content = (
+    				<div className="loader-wrapper">
+    					<Loader style={{ 'width': 100, 'height': 100 }} />
+    				</div>
+    			);
+    	} else {
+    		content = <h1> It is weather</h1>;
+    	}
     	return (
-      		<Loader style={{ 'width': 100, 'height': 100 }} />
+    		<div>
+
+    			{ content }
+
+      		</div>
     	);
   	}
 }
 
-export default Weather;
+const mapStateToProps = state => {
+  	return {
+  		loading: state.loading,
+    	weather: state.weather
+  	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {}
+}
+
+export default connect(
+  	mapStateToProps,
+  	mapDispatchToProps
+)(Weather);
+

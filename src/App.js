@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Section size="medium">
         <Container>
-          <Heading>React Weather App</Heading>
+          <Heading>Weather App</Heading>
 
           <Search />
 
